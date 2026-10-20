@@ -108,6 +108,10 @@ The extension can be used via the ``{{#seo}}`` parser function or in Lua modules
 * twitter_card
   * Allows per page overriding of `$wgWikiSEOTwitterCardType`
 
+**Tags related to the schema.org generator**
+* schema_type
+  * Sets the schema.org type separately from `type`, e.g. `type=profile` with `schema_type=ProfilePage`. Defaults to `type`.
+
 **Tags related to the Citation generator**
 * description
 * keywords

@@ -37,6 +37,7 @@ class SchemaOrg extends AbstractBaseGenerator implements GeneratorInterface {
 	 */
 	protected $tags = [
 		'type',
+		'schema_type',
 		'description',
 		'keywords',
 		'modified_time',
@@ -50,8 +51,6 @@ class SchemaOrg extends AbstractBaseGenerator implements GeneratorInterface {
 	 * @var array
 	 */
 	protected $conversions = [
-		'type' => '@type',
-
 		'section' => 'articleSection',
 
 		'published_time' => 'datePublished',
@@ -99,6 +98,11 @@ class SchemaOrg extends AbstractBaseGenerator implements GeneratorInterface {
 		}
 
 		foreach ( $this->tags as $tag ) {
+			// Set through getTypeMetadata
+			if ( $tag === 'type' || $tag === 'schema_type' ) {
+				continue;
+			}
+
 			if ( array_key_exists( $tag, $this->metadata ) ) {
 				$convertedTag = $this->conversions[$tag] ?? $tag;
 
@@ -133,7 +137,7 @@ class SchemaOrg extends AbstractBaseGenerator implements GeneratorInterface {
 	 * @return string
 	 */
 	private function getTypeMetadata(): string {
-		return $this->metadata['type'] ?? 'Article';
+		return $this->metadata['schema_type'] ?? $this->metadata['type'] ?? 'Article';
 	}
 
 	/**

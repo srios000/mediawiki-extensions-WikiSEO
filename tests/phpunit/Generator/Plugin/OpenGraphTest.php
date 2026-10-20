@@ -41,6 +41,25 @@ class OpenGraphTest extends GeneratorTestBase {
 	}
 
 	/**
+	 * @covers \MediaWiki\Extension\WikiSEO\Generator\Plugins\OpenGraph::addMetadata
+	 */
+	public function testSchemaTypeDoesNotChangeOgType() {
+		$out = $this->newInstance();
+
+		$generator = new OpenGraph();
+		$generator->init(
+			[
+				'type' => 'profile',
+				'schema_type' => 'ProfilePage',
+			], $out
+		);
+		$generator->addMetadata();
+
+		self::assertStringContainsString( 'content="profile"', $out->getHeadItemsArray()['og:type'] );
+		self::assertStringNotContainsString( 'ProfilePage', implode( '', $out->getHeadItemsArray() ) );
+	}
+
+	/**
 	 * @covers \MediaWiki\Extension\WikiSEO\Generator\Plugins\OpenGraph::init
 	 * @covers \MediaWiki\Extension\WikiSEO\Generator\Plugins\OpenGraph::getRevisionTimestamp
 	 * @covers \MediaWiki\Extension\WikiSEO\Generator\AbstractBaseGenerator::setModifiedPublishedTime

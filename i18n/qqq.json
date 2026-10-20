@@ -34,6 +34,7 @@
 	"wiki-seo-param-image_height": "Description for parameter image_height. Height of the image set.",
 	"wiki-seo-param-image_alt": "Description for parameter image_alt. Alternative text of the set image.",
 	"wiki-seo-param-type": "Description for parameter type. Type of the page, used in OpenGraph.",
+	"wiki-seo-param-schema_type": "Description for parameter schema_type. Type of the page, used in schema.org.",
 	"wiki-seo-param-site_name": "Description for parameter site_name. Name of the site, used in OpenGraph.",
 	"wiki-seo-param-locale": "Description for parameter locale. Locale of the article, used in OpenGraph.",
 	"wiki-seo-param-section": "Description for parameter section. Overall section of the article, used in OpenGraph.",

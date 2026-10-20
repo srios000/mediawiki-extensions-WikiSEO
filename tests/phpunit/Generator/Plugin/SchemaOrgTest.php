@@ -171,6 +171,29 @@ class SchemaOrgTest extends GeneratorTestBase {
 	}
 
 	/**
+	 * @covers \MediaWiki\Extension\WikiSEO\Generator\Plugins\SchemaOrg::addMetadata
+	 * @covers \MediaWiki\Extension\WikiSEO\Generator\Plugins\SchemaOrg::getTypeMetadata
+	 */
+	public function testSchemaTypeOverridesType() {
+		$out = $this->newInstance();
+
+		$generator = new SchemaOrg();
+		$generator->init(
+			[
+				'type' => 'profile',
+				'schema_type' => 'ProfilePage',
+			], $out
+		);
+		$generator->addMetadata();
+
+		$jsonLd = $this->getJsonLd( $out );
+
+		self::assertSame( 'ProfilePage', $jsonLd['@type'] );
+		self::assertArrayNotHasKey( 'type', $jsonLd );
+		self::assertArrayNotHasKey( 'schema_type', $jsonLd );
+	}
+
+	/**
 	 * @covers \MediaWiki\Extension\WikiSEO\Generator\Plugins\SchemaOrg::init
 	 * @covers \MediaWiki\Extension\WikiSEO\Generator\AbstractBaseGenerator::setModifiedPublishedTime
 	 */
