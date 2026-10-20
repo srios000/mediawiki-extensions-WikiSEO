@@ -29,6 +29,7 @@
 	"wiki-seo-param-image_height": "Image height:",
 	"wiki-seo-param-image_alt": "Image alternative text:",
 	"wiki-seo-param-type": "Article type:",
+	"wiki-seo-param-schema_type": "Schema.org type:",
 	"wiki-seo-param-site_name": "Site name:",
 	"wiki-seo-param-locale": "Article locale:",
 	"wiki-seo-param-section": "Article section:",
