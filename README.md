@@ -337,6 +337,7 @@ If you only want to override the display title on pages (not append words to it)
 ### schema.org
 The ``SchemaOrg`` generator will set a SearchAction property based on Special:Search.  
 The properties publisher and author will be set to Organization with the name set to the content of ``$wgSitename``.  
+The properties identifier, url and mainEntityOfPage will be set to the full URL of the page.  
 ``dateModified`` will be automatically set by fetching the latest revision timestamp. If no published_time is set, datePublished will be set to the latest revision timestamp.
 
 ### OpenGraph

@@ -86,7 +86,6 @@ class SchemaOrg extends AbstractBaseGenerator implements GeneratorInterface {
 			'@type' => $this->getTypeMetadata(),
 			'name' => $this->outputPage->getHTMLTitle(),
 			'headline' => $this->outputPage->getHTMLTitle(),
-			'mainEntityOfPage' => strip_tags( $this->outputPage->getPageTitle() ),
 		];
 
 		if ( $this->outputPage->getTitle() !== null ) {
@@ -96,6 +95,7 @@ class SchemaOrg extends AbstractBaseGenerator implements GeneratorInterface {
 
 			$meta['identifier'] = $url;
 			$meta['url'] = $url;
+			$meta['mainEntityOfPage'] = $url;
 		}
 
 		foreach ( $this->tags as $tag ) {

@@ -5,6 +5,7 @@ namespace MediaWiki\Extension\WikiSEO\Tests\Generator\Plugin;
 use MediaWiki\Extension\WikiSEO\Generator\Plugins\SchemaOrg;
 use MediaWiki\Extension\WikiSEO\Tests\Generator\GeneratorTestBase;
 use MediaWiki\MainConfigNames;
+use OutputPage;
 
 /**
  * @group Database
@@ -30,6 +31,23 @@ class SchemaOrgTest extends GeneratorTestBase {
 		self::assertArrayHasKey( 'jsonld-metadata', $out->getHeadItemsArray() );
 
 		self::assertStringContainsString( '@type', $out->getHeadItemsArray()['jsonld-metadata'] );
+	}
+
+	/**
+	 * @covers \MediaWiki\Extension\WikiSEO\Generator\Plugins\SchemaOrg::addMetadata
+	 */
+	public function testMainEntityOfPageIsUrl() {
+		$out = $this->newInstance();
+
+		$generator = new SchemaOrg();
+		$generator->init( [], $out );
+		$generator->addMetadata();
+
+		$jsonLd = $this->getJsonLd( $out );
+
+		self::assertArrayHasKey( 'mainEntityOfPage', $jsonLd );
+		self::assertStringStartsWith( 'http', $jsonLd['mainEntityOfPage'] );
+		self::assertSame( $jsonLd['url'], $jsonLd['mainEntityOfPage'] );
 	}
 
 	/**
@@ -168,5 +186,19 @@ class SchemaOrgTest extends GeneratorTestBase {
 		$generator->addMetadata();
 
 		self::assertStringNotContainsString( 'dateModified', $out->getHeadItemsArray()['jsonld-metadata'] );
+	}
+
+	/**
+	 * @param OutputPage $out
+	 * @return array
+	 */
+	private function getJsonLd( OutputPage $out ): array {
+		preg_match(
+			'/<script type="application\/ld\+json">(.*)<\/script>/s',
+			$out->getHeadItemsArray()['jsonld-metadata'],
+			$matches
+		);
+
+		return json_decode( $matches[1], true );
 	}
 }
